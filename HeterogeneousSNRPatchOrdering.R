@@ -88,6 +88,3 @@ traverse_path_het <- function(dat, pol, bpl, rr, stop_add = FALSE,
   
   return(tp_vec)
 }
-
-ff <- traverse_path_het(t(masked_dat), panel_obs_list, blocks_p_list, 2, 20)
-print(ff)
