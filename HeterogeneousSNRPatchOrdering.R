@@ -44,7 +44,7 @@ traverse_path_het <- function(dat, pol, bpl, rr, stop_add = FALSE,
       if(length(overlap_rows) == 0) {next}
       sig_r <- svd(dat[unlist(overlap_rows), bpl[[MM[m1]]]])$d[rr]
       score_mat[m1, m2] <- (1.1 * norm(dat[pol[[MM[m1]]], bpl[[MM[m1]]]], "2") / 
-                              (sig_r)) * 
+                              (sig_r) + 1) * 
         (1 / snr_patches[m1] + 1 / snr_patches[m2])
     }
   }
@@ -68,9 +68,10 @@ traverse_path_het <- function(dat, pol, bpl, rr, stop_add = FALSE,
       overlap_rows <- intersect(pol[[MM[m1]]], current_group_row)
       if(length(overlap_rows) == 0) {next}
       sig_r <- svd(dat[unlist(overlap_rows), bpl[[MM[m1]]]])$d[rr]
+      ### Important line - this is what I believe is currently in the paper
       score_vec[m1] <- (1.1 * norm(dat[pol[[MM[m1]]], bpl[[MM[m1]]]], "2") / 
-                              (sig_r)) * 
-        (1 / snr_patches[m1] + 1/curr_score)
+                              (sig_r) + 1) * 
+        (1 / snr_patches[m1] + curr_score)
     }
     kk <- which(score_vec == min(score_vec, na.rm = TRUE))[1]
 
