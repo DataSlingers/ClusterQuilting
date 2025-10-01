@@ -218,4 +218,4 @@ base_rank <- 2
 base_mean <- 4.5
 sdd <- 1
 
-test_output <- mos_create(n = base_n, p = base_p, v = base_v, b = base_b, h = base_h, clusts = base_clusts, rank_sim = base_rank, mean_cons = base_mean, sdd)
+# test_output <- mos_create(n = base_n, p = base_p, v = base_v, b = base_b, h = base_h, clusts = base_clusts, rank_sim = base_rank, mean_cons = base_mean, sdd)

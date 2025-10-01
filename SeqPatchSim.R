@@ -168,5 +168,5 @@ sd_cons_base <- 1
 base_clusts <- 3
 base_rank <- 2
 
-test_output <- seq_create(n_base, p_base, n_per_base, b_base, base_clusts, base_rank,
-                          mean_cons_base, sd_cons_base)
+# test_output <- seq_create(n_base, p_base, n_per_base, b_base, base_clusts, base_rank,
+#                           mean_cons_base, sd_cons_base)
