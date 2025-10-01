@@ -51,7 +51,7 @@ mos_create <- function(n, p, v, b, h, clusts, rank_sim, mean_cons, sd_cons){
       break
     }
   }
-  clust_lr = clust_lr + rnorm(nrow(clust_lr) * ncol(clust_lr), 0, sd_cons)
+  clust_lr = clust_lr + rnorm(nrow(clust_lr) * ncol(clust_lr), 0, sd_cons / 2)
   
   ## Create centroid matrix for individual view
   for(vv in 1:v){

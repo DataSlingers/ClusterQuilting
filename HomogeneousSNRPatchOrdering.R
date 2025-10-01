@@ -12,7 +12,7 @@ traverse_path <- function(raw_dat, pol, bpl){
   dat <- t(raw_dat)
     
   # First iter
-  score_mat <- matrix(0, length(MM), length(MM))
+  score_mat <- matrix(NA, length(MM), length(MM))
   for(m1 in 1:length(MM)){
     score_denom <- sum(abs(dat[pol[[MM[m1]]], bpl[[MM[m1]]]]))
     score_num <- 0
@@ -24,13 +24,13 @@ traverse_path <- function(raw_dat, pol, bpl){
       score_mat[m1, m2] <- score_num / score_denom
     }
   }
-  kk <- which(score_mat == max(score_mat), arr.ind = TRUE)[1, ]
+  kk <- which(score_mat == max(score_mat, na.rm = TRUE), arr.ind = TRUE)[1, ]
   tp_vec <- c(MM[kk[1]], MM[kk[2]])
   MM <- MM[-which(MM %in% tp_vec)]
     
   # Future iter
   while(length(MM) > 1){
-    score_vec <- rep(0, length(MM))
+    score_vec <- rep(NA, length(MM))
     current_group_row <- unique(unlist(pol[tp_vec]))
     for(m1 in 1:length(MM)){
       overlap_rows <- intersect(pol[[MM[m1]]], current_group_row)
@@ -39,7 +39,7 @@ traverse_path <- function(raw_dat, pol, bpl){
       score_num <- sum(abs(dat[overlap_rows, bpl[[MM[m1]]]]))
       score_vec[m1] <- score_num / score_denom
     }
-    kk <- which(score_vec == max(score_vec))[1]
+    kk <- which(score_vec == max(score_vec, na.rm = TRUE))[1]
     tp_vec <- c(tp_vec, MM[kk])
     MM <- MM[-kk]
   }
