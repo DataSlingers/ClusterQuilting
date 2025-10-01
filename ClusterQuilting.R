@@ -5,8 +5,9 @@ library(RMTstat)
 ## dat: raw data matrix with features as columns and observations as rows.
 ## p_obs: list of arrays of features for each patch.
 ## n_obs: list of arrays of observations for each patch.
+## clusts: number of clusters.
 ## traverse_order: order in which patches should be merged.
-cq_r <- function(data_matrix, p_obs, n_obs, rr, traverse_order){
+ClusterQuilting <- function(data_matrix, p_obs, n_obs, rr, clusts, traverse_order){
   
   
   # Matrix imputation
@@ -44,3 +45,11 @@ cq_r <- function(data_matrix, p_obs, n_obs, rr, traverse_order){
   sc_cq <- kmeans(t(post_proc_spec), clusts)
   return(sc_cq)
 }
+
+### Mosaic patch code.
+# cq_est <- ClusterQuilting(test_output$masked_dat, test_output$view_features,
+#                           test_output$view_obs, 2, 3, tp)
+
+### Sequential patch code.
+# cq_est <- ClusterQuilting(test_output$masked_dat, test_output$patch_features,
+#                           test_output$patch_obs, 2, 3, tp)
