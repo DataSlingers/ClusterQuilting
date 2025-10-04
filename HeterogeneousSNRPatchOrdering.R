@@ -19,7 +19,7 @@ traverse_path_het <- function(dat, pol, bpl, rr){
     ZZ <- dat[pol[[ii]], bpl[[ii]]] / sqrt(min(length(pol[[ii]]), length(bpl[[ii]]))) / sig_hat_patches[ii]
     sig_r <- svd(ZZ)$d[rr]
     ## SNR formula
-    snr_patches[ii] <- sqrt(sig_r^2 - bet - 1 + sqrt(pmax((sig_r^2 - bet - 1) ^ 2 - 4 * bet, 0))) / 
+    snr_patches[ii] <- pmax(sqrt(sig_r^2 - bet - 1 + sqrt(pmax((sig_r^2 - bet - 1) ^ 2 - 4 * bet, 0))), 10^-9) / 
       (sqrt(2) * (1 + sqrt(bet)))
   }
   # First iter
