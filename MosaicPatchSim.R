@@ -207,7 +207,7 @@ mos_create <- function(n, p, v, b, h, clusts, rank_sim, mean_cons, sd_cons){
     
 }
 
-
+set.seed(42)
 base_n <- 840
 base_v <- 12
 base_p <- rep(50, base_v)

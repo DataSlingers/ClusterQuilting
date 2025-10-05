@@ -159,6 +159,7 @@ seq_create <- function(n, p, n_per, b, clusts, rank_sim, mean_cons, sd_cons){
   
 }
 
+set.seed(44)
 p_base <- 100
 n_base <- 710
 n_per_base <- 210
