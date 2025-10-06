@@ -1,3 +1,5 @@
+library(RMTstat)
+
 traverse_path_het <- function(dat, pol, bpl, rr){
   
   # Init
@@ -60,4 +62,8 @@ traverse_path_het <- function(dat, pol, bpl, rr){
   }
 }
 
+### Mosaic patch code.
 # tp <- traverse_path_het(test_output$masked_dat, test_output$view_obs, test_output$view_features, 2)
+
+### Sequential patch code.
+# tp <- traverse_path_het(test_output$masked_dat, test_output$patch_obs, test_output$patch_features, 2)

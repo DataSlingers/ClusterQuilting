@@ -159,15 +159,15 @@ seq_create <- function(n, p, n_per, b, clusts, rank_sim, mean_cons, sd_cons){
   
 }
 
-set.seed(44)
-p_base <- 100
-n_base <- 710
-n_per_base <- 210
-b_base <- 4
-mean_cons_base <- 4.5
-sd_cons_base <- 1
-base_clusts <- 3
-base_rank <- 2
+# set.seed(44)
+# p_base <- 100
+# n_base <- 710
+# n_per_base <- 210
+# b_base <- 4
+# mean_cons_base <- 4.5
+# sd_cons_base <- 1
+# base_clusts <- 3
+# base_rank <- 2
 
 # test_output <- seq_create(n_base, p_base, n_per_base, b_base, base_clusts, base_rank,
 #                           mean_cons_base, sd_cons_base)

@@ -50,7 +50,7 @@ traverse_path <- function(raw_dat, pol, bpl){
 }
 
 ### Mosaic patch code.
-# tp <- traverse_path_het(test_output$masked_dat, test_output$view_obs, test_output$view_features, 2)
+# tp <- traverse_path(test_output$masked_dat, test_output$view_obs, test_output$view_features)
 
 ### Sequential patch code.
-# tp <- traverse_path_het(test_output$masked_dat, test_output$patch_obs, test_output$patch_features, 2)
+# tp <- traverse_path(test_output$masked_dat, test_output$patch_obs, test_output$patch_features)
