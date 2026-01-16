@@ -17,6 +17,8 @@ library(tidyverse)
 ### Make number smaller than full data for testing.
 ## b: number of different observation patches
 ## h: views seen per patch, same for all.
+## iters: number of simulation iterations.
+## wd: directory where simulated mosaic patch observed data should be saved.
 mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
                             n, p_max, v, b, h, iters, wd){
   
@@ -307,11 +309,6 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
     rownames(masked_dat) <- load_df$samples[n_samp]
     colnames(masked_dat) <- unlist(df_column_names[v_vec])
     names(colnames(masked_dat)) <- NULL
-    
-    nan_dat <- matrix(0, n, bp)
-    rownames(nan_dat) <- load_df$samples[n_samp]
-    colnames(nan_dat) <- unlist(df_column_names[v_vec])
-    names(colnames(nan_dat)) <- NULL
     
     for(bb in 1:b){
       tt <- try(masked_dat[blocks_n_list[[bb]], unlist(blocks_p_list[c(panels_list[[bb]])])] <- 
