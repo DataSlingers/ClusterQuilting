@@ -1,4 +1,4 @@
-#### Find traverse order
+#### Find traverse order under the homogeneous SNR assumption
 ### Inputs:
 ## raw_dat: raw data matrix with features as rows and observations as columns.
 ## pol: list of observations for each patch to merge.
@@ -53,4 +53,4 @@ traverse_path <- function(raw_dat, pol, bpl){
 # tp <- traverse_path(test_output$masked_dat, test_output$view_obs, test_output$view_features)
 
 ### Sequential patch code.
-# tp <- traverse_path(test_output$masked_dat, test_output$patch_obs, test_output$patch_features)
+# tp <- traverse_path(test_output$masked_dat, test_output$view_obs, test_output$view_features)
