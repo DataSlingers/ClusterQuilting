@@ -1,7 +1,6 @@
-#############################
-#############################
-#############################
+
 library(pracma)
+library(mvtnorm)
 
 ## Create simulated low-rank Gaussian mixture model data, along with mosaic patch observed missingess.
 ## Inputs:
@@ -232,24 +231,13 @@ mos_create <- function(n, p, v, b, h, clusts, rank_sim, mean_cons, sd_cons,
                 centroid_mats = clust_means,
                 sigma_mats = clust_sigmas)
     
-    # Save info in .Rdata file for easy reload
+    # Save info in .Rdata file for easy reload in evaluation
     save(clust_ass_vec, blocks_p_list, blocks_n_list, obs_panel_list, 
          panel_obs_block_list, panel_obs_list, clusts, rank_sim, clust_means,
          clust_sigmas, file = "trueinfo.RData")
     
     setwd("../")
   }
+  return(save_info)
 }
 
-# set.seed(42)
-# base_n <- 840
-# base_v <- 12
-# base_p <- rep(50, base_v)
-# base_b <- 4
-# base_h <- 6
-# base_clusts <- 3
-# base_rank <- 2
-# base_mean <- 4.5
-# sdd <- 1
-
-# test_output <- mos_create(n = base_n, p = base_p, v = base_v, b = base_b, h = base_h, clusts = base_clusts, rank_sim = base_rank, mean_cons = base_mean, sdd)

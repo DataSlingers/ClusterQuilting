@@ -41,24 +41,23 @@ full_df <- matrix(0, nrow = nrow(block_s4s7) + nrow(block_s8s5),
 colnames(full_df) <- full_target_ids
 
 # Needed entry information for CQ algorithm.
-patch_obs <- list()
-patch_features <- list()
-# obs_panel_list <- list()
-# panel_obs_list <- list()
+blocks_n_list <- list()
+blocks_p_list <- list()
+
 
 # First block
 block1_cols <- match(full_target_ids, s4s7_target_ids)
 full_df[c(1:nrow(block_s4s7)), which(!is.na(block1_cols))] <- 
   as.matrix(block_s4s7[, na.omit(block1_cols)])
-patch_obs[[1]] <- which(!is.na(block1_cols))
-patch_features[[1]] <- c(1:nrow(block_s4s7))
+blocks_n_list[[1]] <- which(!is.na(block1_cols))
+blocks_p_list[[1]] <- c(1:nrow(block_s4s7))
 
 # Second block
 block2_cols <- match(full_target_ids, s8s5_target_ids)
 full_df[c((nrow(block_s4s7) + 1):(nrow(block_s4s7) + nrow(block_s8s5))), which(!is.na(block2_cols))] <- 
   as.matrix(block_s8s5[, na.omit(block2_cols)])
-patch_obs[[2]] patch_features[[2]] <- which(!is.na(block2_cols))
-patch_features[[2]] <- c((nrow(block_s4s7) + 1):(nrow(block_s4s7) + nrow(block_s8s5)))
+blocks_n_list[[2]] blocks_p_list[[2]] <- which(!is.na(block2_cols))
+blocks_p_list[[2]] <- c((nrow(block_s4s7) + 1):(nrow(block_s4s7) + nrow(block_s8s5)))
 
 # Create versions of matrices compatible with saving as csvs.
 ## Used for fitting comparison methods in Matlab.
@@ -71,29 +70,29 @@ cfun <- function(L) {
 }
 
 # Save information necessary for downstream CQ analysis and comparison methods.
-write.csv(t(full_df), "masked_dat_fl.csv", row.names = FALSE)
+write.csv(t(full_df), paste0(save_dir, "/masked_dat_fl.csv"), row.names = FALSE)
 
 ### Save observations for which each view is unmasked
 panel_obs_mat <- matrix(0, n, 2)
 for(bb in 1:2){
-  panel_obs_mat[patch_obs[[bb]], bb] <- 1
+  panel_obs_mat[blocks_n_list[[bb]], bb] <- 1
 }
 write.csv(panel_obs_mat, "panel_obs_mat.csv", row.names = FALSE)
 
 ### Save features within each individual view
 panel_times_mat <- matrix(0, p, 2)
 for(bb in 1:2){
-  panel_times_mat[patch_features[[bb]], bb] <- 1
+  panel_times_mat[blocks_p_list[[bb]], bb] <- 1
 }
 write.csv(panel_times_mat, "panel_times_mat.csv", row.names = FALSE)
 
 ### Save observations within each patch
-ss2 <- cfun(patch_obs)
+ss2 <- cfun(blocks_n_list)
 colnames(ss2) <- NULL
 write.csv(ss2, "sobs.csv", row.names = FALSE)
 
 ### Save features within each patch
-ss4 <- cfun(patch_features)
+ss4 <- cfun(blocks_p_list)
 colnames(ss4) <- NULL
 write.csv(ss4, "stimes.csv", row.names = FALSE)
 
@@ -101,5 +100,11 @@ write.csv(ss4, "stimes.csv", row.names = FALSE)
 ss3 <- which(masked_dat != 0)
 write.csv(ss3, "omega.csv", row.names = FALSE)
 
-clust_ass <- rep(0, ncol(full_df)) # No true clusters, but need to throw something in to some of the comparions method functions
+clust_ass <- rep(0, nrow(full_df)) # No true clusters, but need to throw something in to some of the comparions method functions
 write.csv(clust_ass_vec, "clustass.csv", row.names = FALSE)
+
+obs_panel_list <- blocks_p_list
+panel_obs_list <- blocks_n_list
+
+save(clust_ass_vec, blocks_p_list, blocks_n_list, obs_panel_list, 
+    panel_obs_list, file = "trueinfo.RData")

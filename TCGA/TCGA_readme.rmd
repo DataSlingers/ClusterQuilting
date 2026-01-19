@@ -1,0 +1,8 @@
+---
+title: "Untitled"
+output: html_document
+date: "2026-01-18"
+---
+Data were obtained from The Cancer Genome Atlas (TCGA) through the Genomic Data Commons (GDC). To download the large data volumes required for analysis, the user should first install the GDC Data Transfer Tool from the [GDC website](https://gdc.cancer.gov/access-data/gdc-data-transfer-tool). Then, using the TCGA dataset link, the user should navigate to the Projects tab and select the desired projects from the project checklist; for this paper, we used TCGA-BRCA, TCGA-LUAD, TCGA-LUSC, and TCGA-KIRC. Next, under the Repository tab, the user should specify the data modalities of interest; for this paper, we used DNA methylation, miRNA expression, copy number variation, RNA-seq gene expression, and reverse phase protein array data. After selecting the desired files, the user should generate and download a manifest file by clicking the "Manifest" button. This file then used to retrieve the data via the command line terminal using a command in the form: `gdc-client download -m /Directory/gdc_manifest_name.txt`. The Sample Sheet should also be downloaded in order to identify individuals across the different data files.
+
+Downloaded data appear as individual files in the selected subfolder. The code in `fuse_data.R` can be used to fuse the individual files into a single .csv file per data modality. The `TCGA_datamake.R` file can then be used to create the mosaic patch observation block scheme. 

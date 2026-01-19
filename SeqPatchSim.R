@@ -1,6 +1,3 @@
-#############################
-#############################
-#############################
 
 library(pracma)
 library(mvtnorm)
@@ -154,7 +151,7 @@ seq_create <- function(n, p, n_per, b, clusts, rank_sim, mean_cons, sd_cons,
     write.csv(clust_ass_vec, "clustass.csv", row.names = FALSE)
     
     
-    # Outputs:
+    ## Outputs:
     ## masked_dat: data with patch missingness applied
     ## full_dat: full dat matrix
     ## clust_assignments: cluster label matrix. 
@@ -188,24 +185,12 @@ seq_create <- function(n, p, n_per, b, clusts, rank_sim, mean_cons, sd_cons,
                 centroid_mats = clust_means,
                 sigma_mats = clust_sigmas)
     
-    # Save info in .Rdata file for easy reload
+    # Save info in .Rdata file for easy reload in evaluation
     save(clust_ass_vec, blocks_p_list, blocks_n_list, obs_panel_list, 
          panel_obs_block_list, panel_obs_list, clusts, rank_sim, clust_means,
          clust_sigmas, file = "trueinfo.RData")
     
     setwd("../")
   }
+  return(save_info)
 }
-
-# set.seed(44)
-# p_base <- 100
-# n_base <- 710
-# n_per_base <- 210
-# b_base <- 4
-# mean_cons_base <- 4.5
-# sd_cons_base <- 1
-# base_clusts <- 3
-# base_rank <- 2
-
-# test_output <- seq_create(n_base, p_base, n_per_base, b_base, base_clusts, base_rank,
-#                           mean_cons_base, sd_cons_base)

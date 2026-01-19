@@ -3,6 +3,8 @@ clear all;
 clc
 
 % Change folder name to where the data are stored.
+% Assumes that the folder is contains subfolders of different sim settings,
+% which contain further subfolders of individual simulation iterations. 
 %% NB: If the comparison methods code is in a different directory, 
 %% the addpath lines below need to be changed as well.
 foldname = "./";
@@ -48,26 +50,26 @@ for ii = 3:length(ggg)
         %%%%%%%%%%
         %IMSC-AGL
         disp("IMSC-AGL")
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/IMSC_AGL');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        addpath('./code_dir/CompMethods/IMSC_AGL');
+        addpath('./code_dir/CompMethods/clustering_metrics');
+        addpath('./code_dir/CompMethods/utils');
 
         
-        [imscagl_res, imscagl_clust] = IMSC_AGL_clustering2(testdict_t, clustass, pom);
+        [imscagl_res, imscagl_clust] = IMSC_AGL_clustering2(testdict_t, clustass, pom, true, 0);
         writematrix(imscagl_clust,strcat(rrr, "/", qq, "/IMSCAGL_res.csv"));
         
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/IMSC_AGL');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        rmpath('./code_dir/CompMethods/IMSC_AGL');
+        rmpath('./code_dir/CompMethods/clustering_metrics');
+        rmpath('./code_dir/CompMethods/utils');
 
         
         %%%%%%%%%%
         %%%%%%%%%%
         %IMG
         disp("IMG")
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG/measure');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG/misc');
+        addpath('./code_dir/CompMethods/IMG');
+        addpath('./code_dir/CompMethods/IMG/measure');
+        addpath('./code_dir/CompMethods/IMG/misc');
         for v3 = 2:num_view
             paired = find(pom(:, 1) == 1 & pom(:, v3) == 1);
             spared = find(pom(:, 1) == 1 | pom(:, v3) == 1);
@@ -84,7 +86,7 @@ for ii = 3:length(ggg)
                 option.gamma=1e2;
                 truthF = clustass(spared);
                 try
-                    [U1 U2 P2 P1 P3 F P R nmi avgent AR img_clust] = IMGclust(xpaired,ypaired,xsingle,ysingle,numClust,truthF,option);
+                    [U1 U2 P2 P1 P3 F P R nmi avgent AR img_clust] = IMGclust(xpaired,ypaired,xsingle,ysingle,numClust,truthF,option, true, 0);
                 catch
                     img_clust = ones(nobs);
                 end
@@ -94,54 +96,40 @@ for ii = 3:length(ggg)
         
         writematrix(img_clust,strcat(rrr, "/", qq, "/IMG_res.csv"));
         clear option
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG/measure');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/IMG/misc');
+        rmpath('./code_dir/CompMethods/IMG');
+        rmpath('./code_dir/CompMethods/IMG/measure');
+        rmpath('./code_dir/CompMethods/IMG/misc');
         
         %%%%%%%%%%
         %%%%%%%%%%
-        %PIC
-%         disp("PIC")
-%         addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/PIC');
-%         addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-%         try
-%             [pic_res, pic_clust] = PIC_clustering2(testdict, clustass, pom);
-%         catch
-%             pic_clust = ones(nobs);
-%         end
-%         writematrix(pic_clust,strcat(rrr, "/", qq, "/PIC_res.csv"));
-%         rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/PIC');
-%         rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-
-        %%%%%%%%%%
-        %%%%%%%%%%
+        
         %DAIMC
         disp("DAIMC")
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/DAIMC');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        addpath('./code_dir/CompMethods/DAIMC');
+        addpath('./code_dir/CompMethods/clustering_metrics');
+        addpath('./code_dir/CompMethods/utils');
         
-        [daimc_res, daimc_clust] = DAIMC_clustering2(testdict, clustass, pom);
+        [daimc_res, daimc_clust] = DAIMC_clustering2(testdict, clustass, pom, true, 0);
         writematrix(daimc_clust,strcat(rrr, "/", qq, "/DAIMC_res.csv"));
         
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/DAIMC');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        rmpath('./code_dir/CompMethods/DAIMC');
+        rmpath('./code_dir/CompMethods/clustering_metrics');
+        rmpath('./code_dir/CompMethods/utils');
         
         %%%%%%%%%%
         %%%%%%%%%%
         %OPIMC
         disp("OPIMC")
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/OPIMC');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        addpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        addpath('./code_dir/CompMethods/OPIMC');
+        addpath('./code_dir/CompMethods/clustering_metrics');
+        addpath('./code_dir/CompMethods/utils');
         
-        [opimc_res, opimc_clust] = OPIMC_clustering2(testdict, clustass, pom, bs);
+        [opimc_res, opimc_clust] = OPIMC_clustering2(testdict, clustass, pom, bs,  true, 0);
         writematrix(opimc_clust,strcat(rrr, "/", qq, "/OPIMC_res.csv"));
         
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/OPIMC');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/clustering_metrics');
-        rmpath('/Volumes/T7 Shield/MVPClustering/CompMethods/Survey_IMC/utils');
+        rmpath('./code_dir/CompMethods/OPIMC');
+        rmpath('./code_dir/CompMethods/clustering_metrics');
+        rmpath('./code_dir/CompMethods/utils');
         
         %%%%%%%%%%
         %%%%%%%%%%

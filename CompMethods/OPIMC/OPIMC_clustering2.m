@@ -1,12 +1,13 @@
-function [Clu_result, clust_lab]= OPIMC_clustering2(X, truth, ind_folds, bs)
-% If you use the code, please cite the following papers:
-% [1] Hu M, Chen S. One-pass incomplete multi-view clustering[C]//Proceedings of the AAAI conference on artificial intelligence. 2019, 33(01): 3838-3845.
-% [2] Jie Wen, Zheng Zhang, Lunke Fei, Bob Zhang, Yong Xu, Zhao Zhang, Jinxing Li, A Survey on Incomplete Multi-view Clustering, IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS: SYSTEMS, 2022.
-% Thanks Menglei Hu for providing the source code of OPIMC!
+function [Clu_result, clust_lab]= OPIMC_clustering2(X, truth, ind_folds, bs, oracle, num_clusts)
+
+if oracle
+    numClust = length(unique(truth));
+else
+    numClust = num_clusts;
+end
 
 num_view = length(X);
-numClust = length(unique(truth));
-numInst  = length(truth); 
+numInst  = length(truth);
 
 if size(X{1},2)~=numInst
     for iv = 1:num_view

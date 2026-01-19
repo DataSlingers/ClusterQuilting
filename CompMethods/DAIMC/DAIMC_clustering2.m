@@ -1,15 +1,17 @@
-function [Clu_result, indic] = DAIMC_clustering2(X, truth, ind_folds)
-% If you use the code, please cite the following papers:
-% [1] Hu M, Chen S. Doubly aligned incomplete multi-view clustering[C]//Proceedings of the 27th International Joint Conference on Artificial Intelligence. 2018: 2262-2268.
-% [2] Jie Wen, Zheng Zhang, Lunke Fei, Bob Zhang, Yong Xu, Zhao Zhang, Jinxing Li, A Survey on Incomplete Multi-view Clustering, IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS: SYSTEMS, 2022.
-% Thanks Menglei Hu for providing the source code of DAIMC!
+function [Clu_result, indic] = DAIMC_clustering2(X, truth, ind_folds, oracle, num_clusts)
+
+if oracle
+    numClust = length(unique(truth));
+else
+    numClust = num_clusts;
+end
+
 
 num_view = length(X);
-numClust = length(unique(truth));
-numInst  = length(truth); 
+numInst  = length(truth);
 
 options.afa = 0.0001;
-options.beta = 10000; 
+options.beta = 10000;
 % options.afa = 0.0001;
 % options.beta = 100; 
 if size(X{1},2)~=numInst

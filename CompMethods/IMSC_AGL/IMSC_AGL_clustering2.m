@@ -1,14 +1,15 @@
-function [Clu_result, indic] = IMSC_AGL_clustering2(X, truth, ind_folds)
-% If you use the code, please cite the following references:
-% [1] Jie Wen, Zheng Zhang, Lunke Fei, Bob Zhang, Yong Xu, Zhao Zhang, Jinxing Li, A Survey on Incomplete Multi-view Clustering, IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS: SYSTEMS, 2022.
-% [2] Wen J, Xu Y, Liu H. Incomplete multiview spectral clustering with adaptive graph learning[J]. IEEE Transactions on Cybernetics, 2020, 50(4): 1418-1429.
-% The following released codes are written  by Jie Wen. For any problems, contact jiewen_pr@126.com
- 
+function [Clu_result, indic] = IMSC_AGL_clustering2(X, truth, ind_folds, oracle, num_clusts)
+
+if oracle
+    numClust = length(unique(truth));
+else
+    numClust = num_clusts;
+end
+
 lambda1  = 0.1;
 lambda2  = 1000;
 lambda3  = 100;
-numClust = length(unique(truth));
-numInst  = length(truth); 
+numInst  = length(truth);
 dim = numClust;
 
 truthF = truth;  

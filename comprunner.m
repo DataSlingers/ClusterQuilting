@@ -25,6 +25,8 @@ for ii = 3:length(ggg)
         if startsWith(qq, "._");
             continue
         end
+
+        save_dir = strcat(rrr, "/", qq); % Change if doing data-driven HP tuning
         disp(jj);
         sobs = readtable(strcat(rrr, "/", qq, "/sobs.csv"));
         stimes = readtable(strcat(rrr, "/", qq, "/stimes.csv"));
@@ -55,8 +57,8 @@ for ii = 3:length(ggg)
         addpath('./code_dir/CompMethods/utils');
 
         
-        [imscagl_res, imscagl_clust] = IMSC_AGL_clustering2(testdict_t, clustass, pom);
-        writematrix(imscagl_clust,strcat(rrr, "/", qq, "/IMSCAGL_res.csv"));
+        [imscagl_res, imscagl_clust] = IMSC_AGL_clustering2(testdict_t, clustass, pom, true, 0);
+        writematrix(imscagl_clust,strcat(save_dir, "/IMSCAGL_res.csv"));
         
         rmpath('./code_dir/CompMethods/IMSC_AGL');
         rmpath('./code_dir/CompMethods/clustering_metrics');
@@ -86,7 +88,7 @@ for ii = 3:length(ggg)
                 option.gamma=1e2;
                 truthF = clustass(spared);
                 try
-                    [U1 U2 P2 P1 P3 F P R nmi avgent AR img_clust] = IMGclust(xpaired,ypaired,xsingle,ysingle,numClust,truthF,option);
+                    [U1 U2 P2 P1 P3 F P R nmi avgent AR img_clust] = IMGclust(xpaired,ypaired,xsingle,ysingle,numClust,truthF,option, true, 0);
                 catch
                     img_clust = ones(nobs);
                 end
@@ -94,7 +96,7 @@ for ii = 3:length(ggg)
             end        
         end
         
-        writematrix(img_clust,strcat(rrr, "/", qq, "/IMG_res.csv"));
+        writematrix(img_clust,strcat(save_dir, "/IMG_res.csv"));
         clear option
         rmpath('./code_dir/CompMethods/IMG');
         rmpath('./code_dir/CompMethods/IMG/measure');
@@ -109,8 +111,8 @@ for ii = 3:length(ggg)
         addpath('./code_dir/CompMethods/clustering_metrics');
         addpath('./code_dir/CompMethods/utils');
         
-        [daimc_res, daimc_clust] = DAIMC_clustering2(testdict, clustass, pom);
-        writematrix(daimc_clust,strcat(rrr, "/", qq, "/DAIMC_res.csv"));
+        [daimc_res, daimc_clust] = DAIMC_clustering2(testdict, clustass, pom, true, 0);
+        writematrix(daimc_clust,strcat(save_dir, "/DAIMC_res.csv"));
         
         rmpath('./code_dir/CompMethods/DAIMC');
         rmpath('./code_dir/CompMethods/clustering_metrics');
@@ -124,8 +126,8 @@ for ii = 3:length(ggg)
         addpath('./code_dir/CompMethods/clustering_metrics');
         addpath('./code_dir/CompMethods/utils');
         
-        [opimc_res, opimc_clust] = OPIMC_clustering2(testdict, clustass, pom, bs);
-        writematrix(opimc_clust,strcat(rrr, "/", qq, "/OPIMC_res.csv"));
+        [opimc_res, opimc_clust] = OPIMC_clustering2(testdict, clustass, pom, bs,  true, 0);
+        writematrix(opimc_clust,strcat(save_dir, "/OPIMC_res.csv"));
         
         rmpath('./code_dir/CompMethods/OPIMC');
         rmpath('./code_dir/CompMethods/clustering_metrics');
@@ -143,7 +145,7 @@ for ii = 3:length(ggg)
         catch
             Sigmat = zeros(n2, p2);
         end
-        writematrix(Sigmat,strcat(rrr, "/", qq, "/nn_impute.csv"));
+        writematrix(Sigmat,strcat(save_dir, "/nn_impute.csv"));
 
         rmpath('/Volumes/T7 Shield/CQ');
     end

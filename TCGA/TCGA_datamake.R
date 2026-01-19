@@ -50,7 +50,8 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
   }
   v_l <- length(v_vec)
   
-  dir_name <- paste0("./clusts_", paste(cancer_folds[1:clusts], collapse = ""), "_n_", n, "_p_", sum(p_full), "_k_", b, "_views_", paste(v, collapse = ""),  
+  dir_name <- paste0("./clusts_", paste(cancer_folds[1:clusts], collapse = ""),
+                     "_k_", b, "_views_", paste(v, collapse = ""),  
                      "_vpb_", h)
   
   dir.create(dir_name)
@@ -65,8 +66,9 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
   for(iter in 1:iters){
     n <- n_old
     print(paste0("Iter: ", iter))
-    sub_dir_name <-  paste0("./clusts_", paste(cancer_folds[1:clusts], collapse = ""), "_n_", n_old,  "_p_", sum(p[v_vec]), "_k_", b, "_views_", 
-                            paste(v, collapse = ""),  "_vpb_", h, "_", iter)
+    sub_dir_name <-  paste0("./clusts_", paste(cancer_folds[1:clusts], collapse = ""),
+                            "_k_", b, "_views_", paste(v, collapse = ""),  
+                            "_vpb_", h, "_", iter)
     dir.create(sub_dir_name)
     setwd(sub_dir_name)
     
@@ -101,7 +103,7 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
     n_samp <- c()
     clust_ass_vec <- c()
     for(cc in 1:clusts){
-      n_samp <- c(n_samp, sample(which(view_df$clust == cancer_folds[cc])), floor(n_old / clusts) + floor(cc / clusts))
+      n_samp <- c(n_samp, sample(which(view_df$clust == cancer_folds[cc])))
       clust_ass_vec <- c(clust_ass_vec, rep(cancer_folds[cc], floor(n_old / clusts) + floor(cc / clusts)))
     }
     order_randomizer <- sample(n_old)
@@ -386,7 +388,7 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
     ## rank: not used; exists for parallel return structure with simulated data
     ## centroid_mats: not used; exists for parallel return structure with simulated data
     ## sigma_mats: not used; exists for parallel return structure with simulated data
-    
+    ## n_samp: 
     return_info[[iter]] <- 
       list(masked_dat = t(masked_dat),
          full_dat = t(data_mat),
@@ -403,35 +405,10 @@ mvp_create_tcga <- function(view_df, data_dir, cancer_folds, full_sample_sheet,
          num_clusts = length(cancer_folds), 
          rank = NULL, 
          centroid_mats = NULL,
-         sigma_mats = NULL)
+         sigma_mats = NULL,
+         n_samp = n_samp)
     
     setwd("../")
   }
 }
 
-#####################################
-#####################################
-#####################################
-
-# Sample of how to create synthetic masked data.
-# data_dir <- "./output_dir/" #Change to directory where data is saved locally
-# save_dir <- "./results_dir/" #Change to directory where new data csv should be saved
-# settings_dir <- "./settings_dir/" #Change to directory where settings file is saved locally
-# cancer_folds <- c("Lung", "Breast", "Kidney")
-# data_view_folds <- c("RPPA", "Transcriptome", "Gene", "Methylation", "CNV")
-# view_df <- read.csv(paste0(data_dir, "/view_miss.csv"), row.names = 1) # File created in fuse_data.R.
-# full_sample_sheet <- read.csv(paste0(settings_dir, "/full_sample_sheet.csv"), row.names = 1) # File created in fuse_data.R.
-# 
-# 
-# base_n <- 500 # For testing, can set maximum observations to small number to reduce runtime.
-# base_p <- rep(100000, 8) # For testing, can set maximum features per modality to small number to reduce runtime.
-# base_v <- 5
-# base_b <- 4
-# base_h <- 3
-# iters <- 1 # Use to run multiple simulations at once.
-# 
-# 
-# ttt <- mvp_create_tcga(view_df = view_df, data_dir = data_dir, cancer_folds = cancer_folds,
-#                        settings_dir = settings_dir, full_sample_sheet = full_sample_sheet,
-#                        n = base_n, p_max = base_p, v = base_v, b = base_b, h = base_h,
-#                       iters = iters, wd = save_dir)

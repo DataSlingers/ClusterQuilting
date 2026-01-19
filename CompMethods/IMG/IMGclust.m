@@ -1,15 +1,13 @@
-function [Ux Uy P2 P1 P3 F P R nmi avgent AR C] = IMGclust(X2,Y2,X1,Y3,numClust,truth,option)
+function [Ux Uy P2 P1 P3 F P R nmi avgent AR C] = IMGclust(X2,Y2,X1,Y3,numClust,truth,option,oracle,num_clusts)
 
-% Partial codes are from 
-% S.-Y. Li, Y. Jiang nd Z.-H. Zhou. Partial Multi-View Clustering. In: Proceedings of the 28th AAAI Conference on
-% Artificial Intelligence (AAAI'14),Qu��bec, Canada ,2014.
-
-% Contact handong.zhao@gmail.com if you have any questions
-% Zhao, et al., Incomplete Multi-modal Visual Data Grouping, IJCAI'16
-
-%%
 if (min(truth)==0)
     truth = truth + 1;
+end
+
+if oracle
+    numClust = length(unique(truth));
+else
+    numClust = num_clusts;
 end
 
 option.option = numClust;
