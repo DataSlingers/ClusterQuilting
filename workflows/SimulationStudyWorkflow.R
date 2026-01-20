@@ -10,7 +10,7 @@ setwd("~/ClusterQuilting")  # Change to point to top of repository directory
 ################################################################################
 ################################################################################
 
-# Mosaic patch GMM simulations; example Fig 2
+# Mosaic patch GMM simulations code
 source("./MosaicPatchSim.R")
 source("./HeterogeneousSNRPatchOrdering.R")
 source("./HomogenousSNRPatchOrdering.R")
@@ -88,12 +88,12 @@ setwd("~/ClusterQuilting")
 ### in order to get estimates of clusters from comparison methods used in paper.
 
 # Get CQ estimate, compile evaluation metric results for each simulation setting.
-## For Supp. Figure 5 with homogeneous SNR: change homo_SNR = TRUE
+## For Supp. Figure 6 with homogeneous SNR: change homo_SNR = TRUE
 compile_ari_oracle(save_dir, homo_SNR = FALSE)
 
 setwd("~/ClusterQuilting") 
 
-## For data driven tuning results:
+## For data driven tuning results (Supp Figure 5):
 # ranks <- c(2, 3, 4, 5, 6)
 # clusts <- c(2, 3, 4, 5, 6)
 # 
@@ -146,7 +146,7 @@ setwd("~/ClusterQuilting")
 ################################################################################
 ################################################################################
 
-# Sequential patch GMM simulations; example Supp Fig 3
+# Sequential patch GMM simulations code
 p_base <- 100
 n_base <- 710
 n_per_base <- 210
@@ -220,7 +220,7 @@ compile_ari_oracle(save_dir, homo_SNR = FALSE)
 
 setwd("~/ClusterQuilting") 
 
-## For data driven tuning results:
+## For data driven tuning results (Supp Figure 4):
 # ranks <- c(2, 3, 4, 5, 6)
 # clusts <- c(2, 3, 4, 5, 6)
 # 
