@@ -21,6 +21,7 @@ setwd("~/ClusterQuilting")
 
 ## Data driven tuning of best hyperparameters for each method;
 ## Then save corresponding cluster estimates
+source("./MICRONS/CompileARIMicrons.R")
 ranks <- c(2, 3, 4, 5, 6)
 clusts <- c(2, 3, 4, 5, 6)
 data_dir <- "~/MICRONS" # Change this to where MICRONS data is saved.
@@ -32,7 +33,7 @@ setwd("~/ClusterQuilting")
 ################################################################################
 
 ## Create figures 
-
+source("./MICRONS/MICRONSfigures.R")
 data_dir <- "~/MICRONS" # Change this to where MICRONS data is saved.
 est_dir <- "/MICRONS_est" # Change this to where estimates for comparison methods are saved
 save_dir <- "/MICRONS_plot" # Change this to where plots should be saved
