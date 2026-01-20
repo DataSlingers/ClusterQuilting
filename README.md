@@ -1,6 +1,6 @@
 # ClusterQuilting
 
-This repository contains scripts for creating the results from "Cluster Quilting: Spectral Clustering for Patchwork Learning" by Zheng, Chang, and Allen, 2025. 
+This repository contains scripts for creating the results from "Cluster Quilting: Spectral Clustering for Patchwork Learning" by Zheng, Chang, and Allen (2025). 
 
 ## Individual Scripts
 

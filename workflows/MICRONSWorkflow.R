@@ -1,4 +1,5 @@
-### Code for analyzing MICrONs dataset: 
+### Code for analyzing MICrONs dataset.
+### Also makes Figures 5 and 6 in Zheng, Chang, and Allen (2025).
 ## Creating data frame of functional data from database
 ## Getting method estimates.
 ## Creating results plots. 

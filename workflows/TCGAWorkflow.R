@@ -1,4 +1,5 @@
-### Code for analyzing TCGA dataset: 
+### Code for analyzing TCGA dataset.
+### Also makes Figures 3 and 4, Supp Figure 12 in Zheng, Chang, and Allen (2025).
 ## Creating data frame from individual files, and metadata info.
 ## Getting method estimates.
 ## Creating results plots. 
