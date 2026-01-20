@@ -1,5 +1,10 @@
 library(RMTstat)
-
+#### Find traverse order under the heterogeneous SNR assumption
+### Inputs:
+## dat: raw data matrix with features as rows and observations as columns.
+## pol: list of observations for each patch to merge.
+## bpl: list of features for each patch to merge.
+## rr: the assumed rank of the data matrix.
 traverse_path_het <- function(dat, pol, bpl, rr){
   
   # Init
@@ -62,8 +67,3 @@ traverse_path_het <- function(dat, pol, bpl, rr){
   }
 }
 
-### Mosaic patch code.
-# tp <- traverse_path_het(test_output$masked_dat, test_output$view_obs, test_output$view_features, 2)
-
-### Sequential patch code.
-# tp <- traverse_path_het(test_output$masked_dat, test_output$patch_obs, test_output$patch_features, 2)

@@ -1,0 +1,48 @@
+function [Clu_result, indic] = DAIMC_clustering2(X, truth, ind_folds, oracle, num_clusts)
+
+if oracle
+    numClust = length(unique(truth));
+else
+    numClust = num_clusts;
+end
+
+
+num_view = length(X);
+numInst  = length(truth);
+
+options.afa = 0.0001;
+options.beta = 10000;
+% options.afa = 0.0001;
+% options.beta = 100; 
+if size(X{1},2)~=numInst
+    for iv = 1:num_view
+        X{iv} = X{iv}';
+    end
+end
+for iv = 1:length(X)
+    X1 = X{iv};
+    X1 = NormalizeFea(X1,0);
+    ind_0 = find(ind_folds(:,iv) == 0);
+    X1(:,ind_0) = 0 ;
+    Y{iv} = X1; 
+    W{iv} = diag(ind_folds(:,iv));                       
+end
+
+clear X X1 W1 ind_0
+X = Y;
+clear Y
+[U0,V0,B0] = newinit(X,W,numClust,num_view);
+[U,V,B,F,P,N] = DAIMC(X,W,U0,V0,B0,truth,numClust,num_view,options);
+
+% indic = litekmeans(V, numClust, 'Replicates', 20);
+indic = kmeans(V, numClust);
+result_CLU = ClusteringMeasure(truth, indic)*100;   
+
+Clu_result.ACC = result_CLU(1);
+Clu_result.NMI = result_CLU(2);
+Clu_result.Purity = result_CLU(3);
+% [Clu_result.ARi,~,~,~] = RandIndex(truth, indic);
+[Clu_result.ARi] = 0;
+
+                
+end
