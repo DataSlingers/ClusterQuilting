@@ -20,10 +20,10 @@ source("./PredictionValidation.R")
 # homo_SNR: homogeneous SNR assumption for patch ordering?
 compile_ari_oracle <- function(sim_dir, homo_SNR = FALSE){
   # Get list of subfolders, containing all iterations of a particular simulation setting
-  lss <- list.dirs(sim_dir, full.names = TRUE)
+  lss <- list.dirs(sim_dir, full.names = TRUE, recursive = FALSE)
   for(simfold in 1:length(lss)){
     # Get list of subsubfolders, containing single iteration for a single setting
-    lss2 <- list.dirs(lss[simfold], full.names = TRUE)
+    lss2 <- list.dirs(lss[simfold], full.names = TRUE, recursive = FALSE)
 
     # Create save arrays
     qq <- c()
@@ -128,10 +128,10 @@ compile_ari_oracle <- function(sim_dir, homo_SNR = FALSE){
 compile_ari_dd <- function(sim_dir, rank_solve = NULL, clust_solve = NULL,
                                homo_SNR = FALSE){
   # Get list of subfolders, containing all iterations of a particular simulation setting
-  lss <- list.dirs(sim_dir, full.names = TRUE)
+  lss <- list.dirs(sim_dir, full.names = TRUE, recursive = FALSE)
   for(simfold in 1:length(lss)){
     # Get list of subsubfolders, containing single iteration for a single setting
-    lss2 <- list.dirs(lss[simfold], full.names = TRUE)
+    lss2 <- list.dirs(lss[simfold], full.names = TRUE, recursive = FALSE)
     
     # Create save arrays
     qq <- c()
